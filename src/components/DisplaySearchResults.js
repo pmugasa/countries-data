@@ -1,12 +1,33 @@
 const DisplaySearchResults = ({ result }) => {
-  console.log("result", result);
+  const countryLanguages = Object.values(result.at(0).languages);
+  const flags = result.at(0).flags.png;
+  const countryName = result.at(0).name.common;
+  const capitalCity = result.at(0).capital.at(0);
+  const area = result.at(0).area;
   //checking if results is exactly one country
   if (result.length === 1) {
     console.log("one country:", result.at(0).name.common);
     return (
       <>
-        <h3>{result.at(0).name.common}</h3>
-        <h3>{result.at(0).capital}</h3>
+        <h3>{countryName}</h3>
+        <div>
+          <h3>Capital City</h3>
+          <p> {capitalCity}</p>
+        </div>
+
+        <h3>Area: {area}</h3>
+        <div>
+          <h3>Languages</h3>
+          <ul>
+            {countryLanguages.map((language, i) => {
+              return <li key={i}>{language}</li>;
+            })}
+          </ul>
+        </div>
+
+        <div>
+          <img src={flags} alt="country flag" />
+        </div>
       </>
     );
   }
